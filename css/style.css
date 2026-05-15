@@ -378,21 +378,11 @@ footer {
 }
 
 .menu-toggle::before {
-  content: '';
-  position: absolute;
-  inset: 8px;
-  border-radius: 999px;
-  opacity: 0;
-  box-shadow: 0 0 22px rgba(0, 178, 246, 0.2);
-  transition: opacity 0.35s ease;
+  content: none;
 }
 
 .menu-toggle:focus-visible {
   outline: none;
-}
-
-.menu-toggle:focus-visible::before {
-  opacity: 1;
 }
 
 .menu-toggle span,
@@ -450,19 +440,15 @@ footer {
   transform: translateY(-1px);
 }
 
-.menu-toggle.active::before {
-  opacity: 1;
-}
-
 .menu-toggle.active span {
-  width: 24px;
+  width: 26px;
   left: 13px;
-  top: 10px;
+  top: 9px;
   transform: rotate(90deg);
 }
 
 .menu-toggle.active span::before {
-  width: 20px;
+  width: 17px;
   left: 13px;
   top: 0;
   transform: rotate(-135deg);
@@ -470,7 +456,7 @@ footer {
 }
 
 .menu-toggle.active span::after {
-  width: 20px;
+  width: 17px;
   opacity: 1;
   left: 13px;
   top: 0;
