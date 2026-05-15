@@ -38,6 +38,7 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 a {
@@ -78,6 +79,7 @@ header {
 }
 
 .navbar {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -116,8 +118,15 @@ header {
   transition: width var(--transition-speed);
 }
 
-.navbar nav ul li a:hover::after {
+.navbar nav ul li a:hover::after,
+.navbar nav ul li a.active-page::after,
+.navbar nav ul li a[aria-current="page"]::after {
   width: 100%;
+}
+
+.navbar nav ul li a.active-page,
+.navbar nav ul li a[aria-current="page"] {
+  color: var(--color-accent-end);
 }
 
 /* Hero Section */
@@ -355,35 +364,47 @@ footer {
   color: #666;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .navbar nav ul {
-    display: none;
-    flex-direction: column;
-    background-color: rgba(11, 11, 11, 0.95);
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: 200px;
-    padding: 1rem;
-    border-radius: 0 0 10px 10px;
-  }
-
-  .navbar nav ul.show {
-    display: flex;
-  }
-
-  .menu-toggle {
-    display: block;
-    cursor: pointer;
-  }
-}
-
 .menu-toggle {
   display: none;
-  width: 30px;
-  height: 30px;
+  width: 44px;
+  height: 44px;
   position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 0 18px rgba(0, 178, 246, 0.08);
+  cursor: pointer;
+  transition: transform var(--transition-speed), border-color var(--transition-speed), box-shadow var(--transition-speed);
+  z-index: 1001;
+}
+
+.menu-toggle::before {
+  content: 'D';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  background: linear-gradient(90deg, var(--color-accent-start), var(--color-accent-mid2), var(--color-accent-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.36;
+  transform: translateX(-9px);
+  transition: opacity var(--transition-speed), transform var(--transition-speed);
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus-visible,
+.menu-toggle.active {
+  border-color: rgba(0, 178, 246, 0.5);
+  box-shadow: 0 0 24px rgba(0, 178, 246, 0.2), inset 0 0 18px rgba(252, 176, 69, 0.08);
+}
+
+.menu-toggle:focus-visible {
+  outline: 2px solid var(--color-accent-end);
+  outline-offset: 3px;
 }
 
 .menu-toggle span,
@@ -391,21 +412,209 @@ footer {
 .menu-toggle span::after {
   content: '';
   position: absolute;
-  height: 3px;
-  width: 100%;
-  background-color: var(--color-text);
-  transition: transform var(--transition-speed);
+  right: 10px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-accent-start), var(--color-accent-end));
+  transition: top var(--transition-speed), width var(--transition-speed), transform var(--transition-speed), opacity var(--transition-speed);
 }
 
 .menu-toggle span {
-  top: 50%;
-  transform: translateY(-50%);
+  top: 21px;
+  width: 24px;
 }
 
 .menu-toggle span::before {
-  top: -10px;
+  top: -8px;
+  width: 18px;
 }
 
 .menu-toggle span::after {
-  top: 10px;
+  top: 8px;
+  width: 12px;
+}
+
+.menu-toggle.active {
+  transform: rotate(2deg);
+}
+
+.menu-toggle.active::before {
+  content: 'K';
+  opacity: 0.42;
+  transform: translateX(9px);
+}
+
+.menu-toggle.active span {
+  width: 24px;
+  transform: rotate(45deg);
+}
+
+.menu-toggle.active span::before {
+  top: 0;
+  width: 24px;
+  transform: rotate(-90deg);
+}
+
+.menu-toggle.active span::after {
+  top: 0;
+  width: 24px;
+  opacity: 0;
+  transform: translateX(-8px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.85rem 1rem;
+  }
+
+  .navbar .logo {
+    font-size: 1.35rem;
+  }
+
+  .navbar nav ul {
+    flex-direction: column;
+    gap: 0.35rem;
+    background: linear-gradient(145deg, rgba(11, 11, 11, 0.98), rgba(23, 23, 23, 0.96));
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 1rem;
+    right: 1rem;
+    width: auto;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0 0 14px 14px;
+    box-shadow: 0 22px 45px rgba(0, 0, 0, 0.35), 0 0 30px rgba(0, 178, 246, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-14px) scale(0.98);
+    transform-origin: top right;
+    transition: opacity var(--transition-speed), visibility var(--transition-speed), transform var(--transition-speed);
+  }
+
+  .navbar nav ul.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  .navbar nav ul li a {
+    display: block;
+    padding: 0.9rem 0.85rem;
+    border-radius: 8px;
+  }
+
+  .navbar nav ul li a::after {
+    left: 0.85rem;
+    bottom: 0.45rem;
+    width: 0;
+  }
+
+  .navbar nav ul li a:hover,
+  .navbar nav ul li a.active-page,
+  .navbar nav ul li a[aria-current="page"] {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .menu-toggle {
+    display: block;
+    margin-left: auto;
+  }
+
+  section {
+    padding: 4.5rem 1rem;
+  }
+
+  section h2 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .hero {
+    min-height: 100svh;
+    height: auto;
+    padding: 7rem 1.25rem 4rem;
+  }
+
+  .hero .brand {
+    letter-spacing: 2px;
+  }
+
+  .hero .tagline {
+    font-size: 1.1rem;
+  }
+
+  .services-grid,
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .service-card,
+  .contact-details,
+  .contact-form {
+    padding: 1.4rem;
+  }
+
+  .portfolio-item img {
+    height: 180px;
+  }
+
+  .portfolio-item .overlay {
+    position: static;
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.82);
+  }
+
+  .about-row {
+    gap: 1.25rem;
+  }
+
+  .about-row .photo,
+  .about-row .text,
+  .contact-details,
+  .contact-form {
+    flex-basis: 100%;
+  }
+
+  .about-row .photo {
+    min-height: 220px;
+  }
+
+  .contact-wrapper {
+    gap: 1.25rem;
+  }
+
+  .contact-details p {
+    overflow-wrap: anywhere;
+  }
+
+  .btn,
+  .contact-form button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .navbar {
+    padding-inline: 0.85rem;
+  }
+
+  .navbar nav ul {
+    left: 0.85rem;
+    right: 0.85rem;
+  }
+
+  section {
+    padding-inline: 0.85rem;
+  }
+
+  .service-card,
+  .contact-details,
+  .contact-form {
+    padding: 1.15rem;
+  }
 }
