@@ -485,8 +485,9 @@ footer {
     width: auto;
     padding: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 0 0 14px 14px;
+    border-radius: 14px;
     box-shadow: 0 22px 45px rgba(0, 0, 0, 0.35), 0 0 30px rgba(0, 178, 246, 0.12);
+    overflow: hidden;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -510,8 +511,15 @@ footer {
 
   .navbar nav ul li a::after {
     left: 0.85rem;
+    right: 0.85rem;
     bottom: 0.45rem;
     width: 0;
+  }
+
+  .navbar nav ul li a:hover::after,
+  .navbar nav ul li a.active-page::after,
+  .navbar nav ul li a[aria-current="page"]::after {
+    width: calc(100% - 1.7rem);
   }
 
   .navbar nav ul li a:hover,
