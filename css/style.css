@@ -369,42 +369,30 @@ footer {
   width: 44px;
   height: 44px;
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.04);
-  box-shadow: inset 0 0 18px rgba(0, 178, 246, 0.08);
+  border: 0;
+  background: transparent;
   cursor: pointer;
-  transition: transform var(--transition-speed), border-color var(--transition-speed), box-shadow var(--transition-speed);
+  padding: 0;
+  transition: transform 0.35s ease;
   z-index: 1001;
 }
 
 .menu-toggle::before {
-  content: 'D';
+  content: '';
   position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  font-size: 0.72rem;
-  font-weight: 700;
-  line-height: 1;
-  background: linear-gradient(90deg, var(--color-accent-start), var(--color-accent-mid2), var(--color-accent-end));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  opacity: 0.36;
-  transform: translateX(-9px);
-  transition: opacity var(--transition-speed), transform var(--transition-speed);
-}
-
-.menu-toggle:hover,
-.menu-toggle:focus-visible,
-.menu-toggle.active {
-  border-color: rgba(0, 178, 246, 0.5);
-  box-shadow: 0 0 24px rgba(0, 178, 246, 0.2), inset 0 0 18px rgba(252, 176, 69, 0.08);
+  inset: 8px;
+  border-radius: 999px;
+  opacity: 0;
+  box-shadow: 0 0 22px rgba(0, 178, 246, 0.2);
+  transition: opacity 0.35s ease;
 }
 
 .menu-toggle:focus-visible {
-  outline: 2px solid var(--color-accent-end);
-  outline-offset: 3px;
+  outline: none;
+}
+
+.menu-toggle:focus-visible::before {
+  opacity: 1;
 }
 
 .menu-toggle span,
@@ -412,54 +400,70 @@ footer {
 .menu-toggle span::after {
   content: '';
   position: absolute;
-  right: 10px;
+  left: 50%;
+  top: 50%;
   height: 2px;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--color-accent-start), var(--color-accent-end));
-  transition: top var(--transition-speed), width var(--transition-speed), transform var(--transition-speed), opacity var(--transition-speed);
+  background: linear-gradient(90deg, var(--color-accent-start), var(--color-accent-mid1), var(--color-accent-mid2), var(--color-accent-end));
+  box-shadow: 0 0 12px rgba(0, 178, 246, 0.35);
+  transform-origin: center;
+  transition: width 0.38s cubic-bezier(0.65, 0, 0.35, 1),
+              transform 0.38s cubic-bezier(0.65, 0, 0.35, 1),
+              box-shadow 0.38s ease,
+              opacity 0.25s ease;
 }
 
 .menu-toggle span {
-  top: 21px;
-  width: 24px;
+  width: 26px;
+  transform: translate(-50%, -50%);
 }
 
 .menu-toggle span::before {
-  top: -8px;
-  width: 18px;
+  width: 17px;
+  transform: translate(-50%, -9px);
 }
 
 .menu-toggle span::after {
-  top: 8px;
-  width: 12px;
+  width: 17px;
+  transform: translate(-50%, 9px);
+}
+
+.menu-toggle:hover span,
+.menu-toggle:hover span::before,
+.menu-toggle:hover span::after,
+.menu-toggle:focus-visible span,
+.menu-toggle:focus-visible span::before,
+.menu-toggle:focus-visible span::after,
+.menu-toggle.active span,
+.menu-toggle.active span::before,
+.menu-toggle.active span::after {
+  box-shadow: 0 0 16px rgba(0, 178, 246, 0.55);
 }
 
 .menu-toggle.active {
-  transform: rotate(2deg);
+  transform: translateY(-1px);
 }
 
 .menu-toggle.active::before {
-  content: 'K';
-  opacity: 0.42;
-  transform: translateX(9px);
+  opacity: 1;
 }
 
 .menu-toggle.active span {
-  width: 24px;
-  transform: rotate(45deg);
+  width: 25px;
+  transform: translate(-52%, -50%) rotate(90deg);
 }
 
 .menu-toggle.active span::before {
-  top: 0;
-  width: 24px;
-  transform: rotate(-90deg);
+  width: 18px;
+  transform: translate(-25%, -7px) rotate(-42deg);
+  transform-origin: right center;
 }
 
 .menu-toggle.active span::after {
-  top: 0;
-  width: 24px;
-  opacity: 0;
-  transform: translateX(-8px);
+  width: 18px;
+  opacity: 1;
+  transform: translate(-25%, 7px) rotate(42deg);
+  transform-origin: right center;
 }
 
 /* Responsive adjustments */
