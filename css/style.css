@@ -400,14 +400,14 @@ footer {
 .menu-toggle span::after {
   content: '';
   position: absolute;
-  left: 50%;
-  top: 50%;
   height: 2px;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--color-accent-start), var(--color-accent-mid1), var(--color-accent-mid2), var(--color-accent-end));
   box-shadow: 0 0 12px rgba(0, 178, 246, 0.35);
-  transform-origin: center;
+  transform-origin: left center;
   transition: width 0.38s cubic-bezier(0.65, 0, 0.35, 1),
+              left 0.38s cubic-bezier(0.65, 0, 0.35, 1),
+              top 0.38s cubic-bezier(0.65, 0, 0.35, 1),
               transform 0.38s cubic-bezier(0.65, 0, 0.35, 1),
               box-shadow 0.38s ease,
               opacity 0.25s ease;
@@ -415,17 +415,23 @@ footer {
 
 .menu-toggle span {
   width: 26px;
-  transform: translate(-50%, -50%);
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .menu-toggle span::before {
   width: 17px;
-  transform: translate(-50%, -9px);
+  left: 0;
+  top: 0;
+  transform: translateY(-9px);
 }
 
 .menu-toggle span::after {
   width: 17px;
-  transform: translate(-50%, 9px);
+  left: 0;
+  top: 0;
+  transform: translateY(9px);
 }
 
 .menu-toggle:hover span,
@@ -449,21 +455,27 @@ footer {
 }
 
 .menu-toggle.active span {
-  width: 25px;
-  transform: translate(-52%, -50%) rotate(90deg);
+  width: 24px;
+  left: 13px;
+  top: 10px;
+  transform: rotate(90deg);
 }
 
 .menu-toggle.active span::before {
-  width: 18px;
-  transform: translate(-25%, -7px) rotate(-42deg);
-  transform-origin: right center;
+  width: 20px;
+  left: 13px;
+  top: 0;
+  transform: rotate(-135deg);
+  transform-origin: left center;
 }
 
 .menu-toggle.active span::after {
-  width: 18px;
+  width: 20px;
   opacity: 1;
-  transform: translate(-25%, 7px) rotate(42deg);
-  transform-origin: right center;
+  left: 13px;
+  top: 0;
+  transform: rotate(-45deg);
+  transform-origin: left center;
 }
 
 /* Responsive adjustments */
