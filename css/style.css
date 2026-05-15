@@ -404,24 +404,25 @@ footer {
 }
 
 .menu-toggle span {
-  width: 26px;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
+  width: 2px;
+  height: 26px;
+  left: 13px;
+  top: 9px;
+  transform: none;
 }
 
 .menu-toggle span::before {
   width: 17px;
-  left: 0;
-  top: 0;
-  transform: translateY(-9px);
+  left: 2px;
+  top: 1px;
+  transform: rotate(44deg);
 }
 
 .menu-toggle span::after {
   width: 17px;
-  left: 0;
-  top: 0;
-  transform: translateY(9px);
+  left: 2px;
+  top: 23px;
+  transform: rotate(-44deg);
 }
 
 .menu-toggle:hover span,
@@ -441,27 +442,26 @@ footer {
 }
 
 .menu-toggle.active span {
-  width: 26px;
+  width: 2px;
+  height: 26px;
   left: 13px;
   top: 9px;
-  transform: rotate(90deg);
+  transform: none;
 }
 
 .menu-toggle.active span::before {
   width: 17px;
-  left: 13px;
-  top: 0;
-  transform: rotate(-135deg);
-  transform-origin: left center;
+  left: 2px;
+  top: 13px;
+  transform: rotate(-42deg);
 }
 
 .menu-toggle.active span::after {
   width: 17px;
   opacity: 1;
-  left: 13px;
-  top: 0;
-  transform: rotate(-45deg);
-  transform-origin: left center;
+  left: 2px;
+  top: 13px;
+  transform: rotate(42deg);
 }
 
 /* Responsive adjustments */
